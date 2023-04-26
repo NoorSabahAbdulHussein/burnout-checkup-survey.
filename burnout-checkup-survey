@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burnout Checkup Survey</title>
+    <style>
+        /* Add custom styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+        .bar {
+    height: 20px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    position: relative;
+        }
+        label {
+            display: block;
+            margin: 8px 0;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            background-color: #3498db;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 20px 0;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+    <script>
+    function calculateScore() {
+        const questionCount = 6;
+        let totalScore = 0;
+        let questionScores = [];
+
+        for (let i = 1; i <= questionCount; i++) {
+            const radios = document.getElementsByName(`question${i}`);
+            for (const radio of radios) {
+                if (radio.checked) {
+                    const score = parseInt(radio.value);
+                    totalScore += score;
+                    questionScores.push({question: i, score: score});
+                    break;
+                }
+            }
+        }
+
+        displayResults(questionScores);
+        alert(`Your total score is: ${totalScore}`);
+    }
+
+    function displayResults(questionScores) {
+        const categories = [
+            "Workload",
+            "Perceived control",
+            "Reward",
+            "Community",
+            "Fairness",
+            "Values alignment"
+        ];
+
+        questionScores.forEach((item, index) => {
+            const label = document.createElement("div");
+            label.innerText = categories[index];
+            document.body.appendChild(label);
+
+            const bar = document.createElement("div");
+            bar.className = "bar";
+            bar.style.width = "100%";
+            bar.style.backgroundImage = "linear-gradient(to right, green, red)";
+
+            const scoreLabel = document.createElement("span");
+            scoreLabel.innerText = item.score;
+            scoreLabel.style.position = "relative";
+            scoreLabel.style.left = `calc(${item.score * 10}% - 10px)`;
+            scoreLabel.style.color = "white";
+            scoreLabel.style.fontWeight = "bold";
+            scoreLabel.style.textShadow = "1px 1px 2px black";
+
+            bar.appendChild(scoreLabel);
+            document.body.appendChild(bar);
+        });
+    }
+</script>
+</head>
+<body>
+    <div class="container">
+        <h1>Two-minute Burnout Checkup Survey</h1>
+        <p>
+            Dear participant,
+            This quick, two-minute burnout checkup survey helps you identify and understand potential sources of burnout in your sales role. The survey focuses on six primary drivers of burnout: workload, perceived control, reward, community, fairness, and values alignment. By answering these six questions, you can gain insights into areas that may need attention or improvement.
+        </p>
+        <form id="surveyForm" onsubmit="event.preventDefault(); calculateScore();">
+            <label for="question1">Q1/ Workload: How do you feel when handling multiple tasks at once?</label>
+            <label><input type="radio" name="question1" value="10"> Very comfortable</label>
+            <label><input type="radio" name="question1" value="8"> Comfortable</label>
+            <label><input type="radio" name="question1" value="6"> Slightly overwhelmed</label>
+            <label><input type="radio" name="question1" value="4"> Stressed</label>
+            <label><input type="radio" name="question1" value="2"> Extremely stressed</label>
+
+            <label for="question2">Q2/ Perceived control: How much control do you have over your daily tasks and decisions?</label>
+            <label><input type="radio" name="question2" value="10"> Complete control</label>
+            <label><input type="radio" name="question2" value="8"> Mostly in control</label>
+            <label><input type="radio" name="question2" value="6"> Moderate control</label>
+            <label><input type="radio" name="question2" value="4"> Little control</label>
+            <label><input type="radio" name="question2" value="2"> No control</label>
+
+            <label for="question3">Q3/ Reward: How satisfied are you with the rewards and recognition you receive for your work?</label>
+            <label><input type="radio" name="question3" value="10"> Extremely satisfied</label>
+            <label><input type="radio" name="question3" value="8"> Very satisfied</label>
+            <label><input type="radio" name="question3" value="6"> Moderately satisfied</label>
+            <label><input type="radio" name="question3" value="4"> Slightly dissatisfied</label>
+            <label><input type="radio" name="question3" value="2"> Extremely dissatisfied</label>
+
+            <label for="question4">Q4/ Community: How strong is your sense of belonging and support in your workplace?</label>
+            <label><input type="radio" name="question4" value="10"> Extremely strong</label>
+            <label><input type="radio" name="question4" value="8"> Very strong</label>
+            <label><input type="radio" name="question4" value="6"> Moderately strong</label>
+            <label><input type="radio" name="question4" value="4"> Slightly weak</label>
+            <label><input type="radio" name="question4" value="2"> Extremely weak</label>
+
+            <label for="question5">Q5/ Fairness: How fair do you believe your workplace policies and practices are?</label>
+            <label><input type="radio" name="question5" value="10"> Extremely fair</label>
+            <label><input type="radio" name="question5" value="8"> Very fair</label>
+            <label><input type="radio" name="question5" value="6"> Moderately fair</label>
+            <label><input type="radio" name="question5" value="4"> Slightly unfair</label>
+            <label><input type="radio" name="question5" value="2"> Extremely unfair</label>
+
+            <label for="question6">Q6/ Values alignment: How well do your personal values align with your company's values?</label>
+            <label><input type="radio" name="question6" value="10"> Perfect alignment</label>
+            <label><input type="radio" name="question6" value="8"> Strong alignment</label>
+            <label><input type="radio" name="question6" value="6"> Moderate alignment</label>
+            <label><input type="radio" name="question6" value="4"> Slight misalignment</label>
+            <label><input type="radio" name="question6" value="2"> Extreme misalignment</label>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>
